@@ -790,7 +790,7 @@
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) or vector(0)) by (status)",
+          "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) by (status)",
           "legendFormat": "{{status}}",
           "refId": "B"
         }
