@@ -113,15 +113,21 @@ Within 15 seconds all 3 dashboards react. Error rate spikes, SLO status turns re
 
 Payment Service — error rate spike, SLO red
 
-![Payment Spike](docs/screenshots/chaos-payment-spike.png)
+![Payment Spike](docs/screenshots/chaos-payment-spike1.png)
+![Payment Spike](docs/screenshots/chaos-payment-spike2.png)
+![Payment Spike](docs/screenshots/chaos-payment-spike3.png)
 
 Order Service — error rate spike, order failures climbing
 
-![Order Spike](docs/screenshots/chaos-order-spike.png)
+![Order Spike](docs/screenshots/chaos-order-spike1.png)
+![Order Spike](docs/screenshots/chaos-order-spike2.png)
+![Order Spike](docs/screenshots/chaos-order-spike3.png)
 
 Product Catalog — error rate spike, SLO red
 
-![Catalog Spike](docs/screenshots/chaos-catalog-spike.png)
+![Catalog Spike](docs/screenshots/chaos-catalog-spike1.png)
+![Catalog Spike](docs/screenshots/chaos-catalog-spike2.png)
+![Catalog Spike](docs/screenshots/chaos-catalog-spike3.png)
 
 **Step 4: Alert fires**
 
