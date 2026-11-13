@@ -1,5 +1,3 @@
-# ecom-sre-pulse
-
 A simulated e-commerce platform built to practice real-world SRE work.
 
 The project mimics a production microservices environment with three independent services: Payment, Product Catalog, and Order, each running in Docker. The goal is to observe, monitor, and respond to failures the way an SRE would on a real team.
