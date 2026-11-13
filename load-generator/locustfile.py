@@ -1,14 +1,18 @@
 """
 Load generator for ecom-sre-pulse.
-Run: locust -f locustfile.py --host http://localhost --headless -u 20 -r 2 --run-time 5m
+Targets all 3 services using internal Docker hostnames.
 """
 import random
 from locust import HttpUser, task, between
 
-PRODUCT_IDS = ["p001", "p002", "p003", "p004", "p005"]
+PAYMENT_HOST  = "http://payment:8001"
+CATALOG_HOST  = "http://product-catalog:8002"
+ORDER_HOST    = "http://order-service:8003"
+PRODUCT_IDS   = ["p001", "p002", "p003", "p004", "p005"]
+
 
 class PaymentUser(HttpUser):
-    host = "http://payment:8001"
+    host = PAYMENT_HOST
     wait_time = between(0.5, 2)
 
     @task(3)
@@ -27,7 +31,7 @@ class PaymentUser(HttpUser):
 
 
 class CatalogUser(HttpUser):
-    host = "http://product-catalog:8002"
+    host = CATALOG_HOST
     wait_time = between(0.2, 1)
 
     @task(4)
@@ -48,7 +52,7 @@ class CatalogUser(HttpUser):
 
 
 class OrderUser(HttpUser):
-    host = "http://order-service:8003"
+    host = ORDER_HOST
     wait_time = between(1, 3)
 
     @task(3)
