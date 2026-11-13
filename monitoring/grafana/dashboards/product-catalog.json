@@ -1,216 +1,865 @@
 {
-  "annotations": { "list": [] },
+  "annotations": {
+    "list": []
+  },
   "editable": true,
   "graphTooltip": 1,
   "id": null,
   "links": [],
   "panels": [
-
-    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
-      "id": 100, "title": "Service Status", "type": "row" },
-
     {
-      "id": 1, "type": "stat",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 100,
+      "title": "Service Status",
+      "type": "row"
+    },
+    {
+      "id": 1,
+      "type": "stat",
       "title": "Service Up/Down",
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "options": { "colorMode": "background", "graphMode": "none", "textMode": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [
-            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "DOWN",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "UP",
+                  "color": "green"
+                }
+              }
+            }
           ],
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] },
-          "color": { "mode": "thresholds" }
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
         }
       },
-      "targets": [{ "expr": "up{job=\"product-catalog\"}", "legendFormat": "Catalog", "refId": "A" }]
+      "targets": [
+        {
+          "expr": "up{job=\"product-catalog\"}",
+          "legendFormat": "Catalog",
+          "refId": "A"
+        }
+      ]
     },
-
     {
-      "id": 2, "type": "stat",
+      "id": 2,
+      "type": "stat",
       "title": "Uptime % (24h)",
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "options": { "colorMode": "background", "graphMode": "none", "textMode": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"] } },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent", "decimals": 2,
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "yellow", "value": 99 }, { "color": "green", "value": 99.5 }] },
-          "color": { "mode": "thresholds" }
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
         }
       },
-      "targets": [{ "expr": "avg_over_time(up{job=\"product-catalog\"}[24h]) * 100", "legendFormat": "Uptime", "refId": "A" }]
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 99
+              },
+              {
+                "color": "green",
+                "value": 99.5
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg_over_time(up{job=\"product-catalog\"}[24h]) * 100",
+          "legendFormat": "Uptime",
+          "refId": "A"
+        }
+      ]
     },
-
     {
-      "id": 3, "type": "stat",
+      "id": 3,
+      "type": "stat",
       "title": "SLO Status (99.5%)",
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "options": { "colorMode": "background", "graphMode": "none", "textMode": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"] } },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent", "decimals": 2,
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "yellow", "value": 99 }, { "color": "green", "value": 99.5 }] },
-          "color": { "mode": "thresholds" }
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
         }
       },
-      "targets": [{
-        "expr": "(1 - sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1h])) / sum(rate(http_requests_total{service=\"product-catalog\"}[1h]))) * 100",
-        "legendFormat": "Success Rate", "refId": "A"
-      }]
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 99
+              },
+              {
+                "color": "green",
+                "value": 99.5
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "(1 - (sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1h])) or vector(0)) / sum(rate(http_requests_total{service=\"product-catalog\"}[1h]))) * 100",
+          "legendFormat": "Success Rate",
+          "refId": "A"
+        }
+      ]
     },
-
     {
-      "id": 4, "type": "stat",
+      "id": 4,
+      "type": "stat",
       "title": "Error Rate",
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "options": { "colorMode": "background", "graphMode": "none", "textMode": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"] } },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent", "decimals": 2,
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 0.5 }, { "color": "red", "value": 2 }] },
-          "color": { "mode": "thresholds" }
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
         }
       },
-      "targets": [{
-        "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[5m])) / sum(rate(http_requests_total{service=\"product-catalog\"}[5m])) * 100",
-        "legendFormat": "Error Rate", "refId": "A"
-      }]
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "(sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[5m])) or vector(0)) / sum(rate(http_requests_total{service=\"product-catalog\"}[5m])) * 100",
+          "legendFormat": "Error Rate",
+          "refId": "A"
+        }
+      ]
     },
-
     {
-      "id": 5, "type": "stat",
+      "id": 5,
+      "type": "stat",
       "title": "Products Viewed",
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "options": { "colorMode": "value", "graphMode": "area", "textMode": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"] } },
-      "fieldConfig": {
-        "defaults": {
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "blue", "value": null }] },
-          "color": { "mode": "thresholds" }
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
         }
       },
-      "targets": [{ "expr": "sum(products_viewed_total)", "legendFormat": "Viewed", "refId": "A" }]
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(products_viewed_total)",
+          "legendFormat": "Viewed",
+          "refId": "A"
+        }
+      ]
     },
-
     {
-      "id": 6, "type": "stat",
+      "id": 6,
+      "type": "stat",
       "title": "Requests In Progress",
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "options": { "colorMode": "value", "graphMode": "none", "textMode": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"] } },
-      "fieldConfig": {
-        "defaults": {
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 10 }, { "color": "red", "value": 50 }] },
-          "color": { "mode": "thresholds" }
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
         }
       },
-      "targets": [{ "expr": "http_requests_in_progress{service=\"product-catalog\"}", "legendFormat": "In Progress", "refId": "A" }]
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "http_requests_in_progress{service=\"product-catalog\"}",
+          "legendFormat": "In Progress",
+          "refId": "A"
+        }
+      ]
     },
-
-    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
-      "id": 101, "title": "Traffic", "type": "row" },
-
     {
-      "id": 10, "type": "timeseries",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 200,
+      "title": "Error Budget",
+      "type": "row"
+    },
+    {
+      "id": 201,
+      "type": "stat",
+      "title": "Error Budget Remaining (1h)",
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 6
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "min": -100,
+          "max": 100
+        }
+      },
+      "targets": [
+        {
+          "expr": "(1 - ((sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1h])) or vector(0)) / sum(rate(http_requests_total{service=\"product-catalog\"}[1h])) / 0.005)) * 100",
+          "legendFormat": "Budget Remaining",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 202,
+      "type": "stat",
+      "title": "Burn Rate (vs 0.5% budget)",
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 6
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "((sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1h])) or vector(0)) / sum(rate(http_requests_total{service=\"product-catalog\"}[1h]))) / 0.005",
+          "legendFormat": "Burn Rate",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 203,
+      "type": "timeseries",
+      "title": "Error Budget Burn Over Time",
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 6
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "single"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "expr": "((sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[5m])) or vector(0)) / sum(rate(http_requests_total{service=\"product-catalog\"}[5m]))) / 0.005",
+          "legendFormat": "Burn Rate",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 101,
+      "title": "Traffic",
+      "type": "row"
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
       "title": "Requests per Second",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "fieldConfig": { "defaults": { "unit": "reqps", "color": { "mode": "palette-classic" } } },
-      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "targets": [
-        { "expr": "sum(rate(http_requests_total{service=\"product-catalog\"}[1m]))", "legendFormat": "Total", "refId": "A" },
-        { "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"2..\"}[1m]))", "legendFormat": "2xx", "refId": "B" },
-        { "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m]))", "legendFormat": "5xx", "refId": "C" }
+        {
+          "expr": "sum(rate(http_requests_total{service=\"product-catalog\"}[1m]))",
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"2..\"}[1m]))",
+          "legendFormat": "2xx",
+          "refId": "B"
+        },
+        {
+          "expr": "(sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) or vector(0))",
+          "legendFormat": "5xx",
+          "refId": "C"
+        }
       ]
     },
-
     {
-      "id": 11, "type": "timeseries",
+      "id": 11,
+      "type": "timeseries",
       "title": "Products Viewed by Category",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "fieldConfig": { "defaults": { "unit": "short", "color": { "mode": "palette-classic" } } },
-      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "targets": [
-        { "expr": "sum(rate(products_viewed_total[1m])) by (category)", "legendFormat": "{{category}}", "refId": "A" },
-        { "expr": "sum(rate(catalog_searches_total[1m]))", "legendFormat": "Searches", "refId": "B" }
+        {
+          "expr": "sum(rate(products_viewed_total[1m])) by (category)",
+          "legendFormat": "{{category}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(catalog_searches_total[1m]))",
+          "legendFormat": "Searches",
+          "refId": "B"
+        }
       ]
     },
-
-    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 },
-      "id": 102, "title": "Latency", "type": "row" },
-
     {
-      "id": 20, "type": "timeseries",
-      "title": "Request Latency — p50 / p95 / p99",
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 15 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "fieldConfig": { "defaults": { "unit": "s", "color": { "mode": "palette-classic" } } },
-      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 102,
+      "title": "Latency",
+      "type": "row"
+    },
+    {
+      "id": 20,
+      "type": "timeseries",
+      "title": "Request Latency \u2014 p50 / p95 / p99",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "targets": [
-        { "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{service=\"product-catalog\"}[1m])) by (le))", "legendFormat": "p50", "refId": "A" },
-        { "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{service=\"product-catalog\"}[1m])) by (le))", "legendFormat": "p95", "refId": "B" },
-        { "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{service=\"product-catalog\"}[1m])) by (le))", "legendFormat": "p99", "refId": "C" }
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{service=\"product-catalog\"}[1m])) by (le))",
+          "legendFormat": "p50",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{service=\"product-catalog\"}[1m])) by (le))",
+          "legendFormat": "p95",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{service=\"product-catalog\"}[1m])) by (le))",
+          "legendFormat": "p99",
+          "refId": "C"
+        }
       ]
     },
-
-    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
-      "id": 103, "title": "Errors", "type": "row" },
-
     {
-      "id": 30, "type": "timeseries",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 103,
+      "title": "Errors",
+      "type": "row"
+    },
+    {
+      "id": 30,
+      "type": "timeseries",
       "title": "Error Rate %",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "fieldConfig": { "defaults": { "unit": "percent", "color": { "fixedColor": "red", "mode": "fixed" } } },
-      "options": { "tooltip": { "mode": "single" }, "legend": { "displayMode": "list", "placement": "bottom" } },
-      "targets": [{
-        "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) / sum(rate(http_requests_total{service=\"product-catalog\"}[1m])) * 100",
-        "legendFormat": "Error %", "refId": "A"
-      }]
-    },
-
-    {
-      "id": 31, "type": "timeseries",
-      "title": "Errors by Status Code",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "fieldConfig": { "defaults": { "unit": "short", "color": { "mode": "palette-classic" } } },
-      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "single"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "targets": [
-        { "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"4..\"}[1m])) by (status)", "legendFormat": "{{status}}", "refId": "A" },
-        { "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) by (status)", "legendFormat": "{{status}}", "refId": "B" }
+        {
+          "expr": "(sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) or vector(0)) / sum(rate(http_requests_total{service=\"product-catalog\"}[1m])) * 100",
+          "legendFormat": "Error %",
+          "refId": "A"
+        }
       ]
     },
-
-    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 32 },
-      "id": 104, "title": "Saturation", "type": "row" },
-
     {
-      "id": 40, "type": "timeseries",
+      "id": 31,
+      "type": "timeseries",
+      "title": "Errors by Status Code",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{service=\"product-catalog\", status=~\"4..\"}[1m])) by (status)",
+          "legendFormat": "{{status}}",
+          "refId": "A"
+        },
+        {
+          "expr": "(sum(rate(http_requests_total{service=\"product-catalog\", status=~\"5..\"}[1m])) or vector(0)) by (status)",
+          "legendFormat": "{{status}}",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 104,
+      "title": "Saturation",
+      "type": "row"
+    },
+    {
+      "id": 40,
+      "type": "timeseries",
       "title": "Requests In Progress",
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 33 },
-      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
-      "fieldConfig": { "defaults": { "unit": "short", "color": { "fixedColor": "orange", "mode": "fixed" } } },
-      "options": { "tooltip": { "mode": "single" }, "legend": { "displayMode": "list", "placement": "bottom" } },
-      "targets": [{ "expr": "http_requests_in_progress{service=\"product-catalog\"}", "legendFormat": "In Progress", "refId": "A" }]
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "fixedColor": "orange",
+            "mode": "fixed"
+          }
+        }
+      },
+      "options": {
+        "tooltip": {
+          "mode": "single"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "expr": "http_requests_in_progress{service=\"product-catalog\"}",
+          "legendFormat": "In Progress",
+          "refId": "A"
+        }
+      ]
     }
-
   ],
   "refresh": "10s",
   "schemaVersion": 38,
-  "tags": ["ecom", "catalog", "sre"],
-  "time": { "from": "now-1h", "to": "now" },
+  "tags": [
+    "ecom",
+    "catalog",
+    "sre"
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "timezone": "browser",
   "title": "Product Catalog",
   "uid": "product-catalog",

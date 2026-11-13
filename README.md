@@ -77,25 +77,46 @@ docker compose --profile load up -d load-generator
 
 Open `http://localhost:8089`, set Users to 20, Ramp up to 5, and click Start.
 
-![Locust](docs/screenshots/locust.png)
+![Locust Start](docs/screenshots/locust-start.png)
+
+After a few seconds the results tab shows live RPS, response times, and failure counts across all 3 services.
+
+![Locust Results](docs/screenshots/locust-results.png)
 
 **Step 2: Inject failure**
 
-Enable chaos on the Payment service. 60% of payment requests will now return 500 errors.
+Enable chaos on all 3 services. 60% of requests will now return 500 errors across the platform.
 
 ```bash
 curl -X POST http://localhost:8001/chaos/enable
+curl -X POST http://localhost:8002/chaos/enable
+curl -X POST http://localhost:8003/chaos/enable
 ```
+
+![Chaos Enable](docs/screenshots/chaos-enable.png)
 
 **Step 3: Observe in Grafana**
 
-Open the Payment Service dashboard at `http://localhost:4000/d/payment-service`.
+Within 15 seconds all 3 dashboards react. Error rate spikes, SLO status turns red, and the platform is visibly degraded.
 
-Within 15 seconds you will see the error rate panel spike, the SLO status turn red, and the Order Service dashboard show payment failures climbing.
+Payment Service — error rate spike, SLO red
+
+![Payment Spike](docs/screenshots/chaos-payment-spike1.png)
+![Payment Spike](docs/screenshots/chaos-payment-spike2.png)
+
+Order Service — error rate spike, order failures climbing
+
+![Order Spike](docs/screenshots/chaos-order-spike.png)
+
+Product Catalog — error rate spike, SLO red
+
+![Catalog Spike](docs/screenshots/chaos-catalog-spike.png)
 
 **Step 4: Alert fires**
 
-After 2 minutes of sustained errors, Alertmanager fires the `PaymentSLOBudgetBurning` alert.
+After 2 minutes of sustained errors, Alertmanager fires the `PaymentSLOBudgetBurning` alert. View firing alerts at `http://localhost:9090/alerts`.
+
+![Alerts Firing](docs/screenshots/alerts-firing.png)
 
 **Step 5: Recover**
 
@@ -103,6 +124,8 @@ Disable chaos and watch the dashboards return to green.
 
 ```bash
 curl -X POST http://localhost:8001/chaos/disable
+curl -X POST http://localhost:8002/chaos/disable
+curl -X POST http://localhost:8003/chaos/disable
 ```
 
 Error rate drops, SLO status recovers, and the alert resolves. This is the detect, respond, and recover loop that SRE on-call work is built around.
