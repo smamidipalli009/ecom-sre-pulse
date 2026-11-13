@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: ecom-sre-pulse
+    orgId: 1
+    folder: "ecom-sre-pulse"
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

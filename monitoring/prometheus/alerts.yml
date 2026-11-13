@@ -1,0 +1,77 @@
+groups:
+  - name: slo_alerts
+    interval: 30s
+    rules:
+
+      # ── Payment Service SLO: 99.9% success rate ──
+      - alert: PaymentSLOBudgetBurning
+        expr: |
+          (
+            sum(rate(http_requests_total{service="payment", status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{service="payment"}[5m]))
+          ) > 0.001
+        for: 2m
+        labels:
+          severity: critical
+          service: payment
+        annotations:
+          summary: "Payment service error budget burning fast"
+          description: "Error rate {{ $value | humanizePercentage }} exceeds SLO threshold (0.1%)"
+          runbook: "https://github.com/your-org/ecom-sre-pulse/wiki/runbooks/payment-slo"
+
+      # ── Product Catalog SLO: 99.5% success rate ──
+      - alert: CatalogSLOBudgetBurning
+        expr: |
+          (
+            sum(rate(http_requests_total{service="product-catalog", status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{service="product-catalog"}[5m]))
+          ) > 0.005
+        for: 2m
+        labels:
+          severity: warning
+          service: product-catalog
+        annotations:
+          summary: "Product catalog error budget burning"
+          description: "Error rate {{ $value | humanizePercentage }} exceeds SLO threshold (0.5%)"
+
+      # ── Order Service SLO: 99.9% success rate ──
+      - alert: OrderSLOBudgetBurning
+        expr: |
+          (
+            sum(rate(http_requests_total{service="order-service", status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{service="order-service"}[5m]))
+          ) > 0.001
+        for: 2m
+        labels:
+          severity: critical
+          service: order-service
+        annotations:
+          summary: "Order service error budget burning fast"
+          description: "Error rate {{ $value | humanizePercentage }} exceeds SLO threshold (0.1%)"
+
+  - name: latency_alerts
+    rules:
+      - alert: HighP99Latency
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (service, le)
+          ) > 1.0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High p99 latency on {{ $labels.service }}"
+          description: "p99 latency is {{ $value | humanizeDuration }}"
+
+  - name: availability_alerts
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
