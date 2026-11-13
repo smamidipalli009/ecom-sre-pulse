@@ -1,3 +1,5 @@
+# ecom-sre-pulse
+
 This project simulates a real e-commerce backend to practice core SRE skills: observability, alerting, load testing, and chaos engineering.
 
 The idea is simple. Run three microservices in Docker, instrument them with Prometheus and Grafana, generate realistic traffic, inject failures, and watch how the system behaves. Every step mirrors what an SRE does on a real team: set up monitoring, detect problems through dashboards and alerts, and recover from incidents.
@@ -57,9 +59,21 @@ Prometheus scrapes metrics from all 3 services every 15 seconds. Open `http://lo
 
 **Grafana Dashboards**
 
-Open `http://localhost:4000`. One dashboard per service, each covering the 4 Golden Signals: Traffic, Latency, Errors, and Saturation.
+Open `http://localhost:4000`. One dashboard per service, each covering the 4 Golden Signals: Traffic, Latency, Errors, and Saturation. The screenshots below show all services healthy with live traffic before any chaos is introduced.
 
-![Grafana Dashboards](docs/screenshots/grafana-dashboards.png)
+![All Dashboards](docs/screenshots/grafana-dashboards.png)
+
+![Payment Service](docs/screenshots/grafana-payment1.png)
+![Payment Service](docs/screenshots/grafana-payment2.png)
+![Payment Service](docs/screenshots/grafana-payment3.png)
+
+![Order Service](docs/screenshots/grafana-order1.png)
+![Order Service](docs/screenshots/grafana-order2.png)
+![Order Service](docs/screenshots/grafana-order3.png)
+
+![Product Catalog](docs/screenshots/grafana-catalog1.png)
+![Product Catalog](docs/screenshots/grafana-catalog2.png)
+![Product Catalog](docs/screenshots/grafana-catalog3.png)
 
 ## The SRE Story
 
@@ -99,8 +113,7 @@ Within 15 seconds all 3 dashboards react. Error rate spikes, SLO status turns re
 
 Payment Service — error rate spike, SLO red
 
-![Payment Spike](docs/screenshots/chaos-payment-spike1.png)
-![Payment Spike](docs/screenshots/chaos-payment-spike2.png)
+![Payment Spike](docs/screenshots/chaos-payment-spike.png)
 
 Order Service — error rate spike, order failures climbing
 
