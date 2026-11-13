@@ -1,5 +1,3 @@
-# ecom-sre-pulse
-
 This project simulates a real e-commerce backend to practice core SRE skills: observability, alerting, load testing, and chaos engineering.
 
 The idea is simple. Run three microservices in Docker, instrument them with Prometheus and Grafana, generate realistic traffic, inject failures, and watch how the system behaves. Every step mirrors what an SRE does on a real team: set up monitoring, detect problems through dashboards and alerts, and recover from incidents.
