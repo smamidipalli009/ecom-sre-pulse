@@ -1,6 +1,10 @@
-A simulated e-commerce platform built to practice real-world SRE work.
+# ecom-sre-pulse
 
-The project mimics a production microservices environment with three independent services: Payment, Product Catalog, and Order, each running in Docker. The goal is to observe, monitor, and respond to failures the way an SRE would on a real team.
+This project simulates a real e-commerce backend to practice core SRE skills: observability, alerting, load testing, and chaos engineering.
+
+The idea is simple. Run three microservices in Docker, instrument them with Prometheus and Grafana, generate realistic traffic, inject failures, and watch how the system behaves. Every step mirrors what an SRE does on a real team: set up monitoring, detect problems through dashboards and alerts, and recover from incidents.
+
+This is not a production app. It is a hands-on environment built to demonstrate the detect, respond, and recover loop that SRE work is built around.
 
 ## Services
 
@@ -18,9 +22,9 @@ Each service is an independent Python/Flask app running in its own Docker contai
 docker compose up -d
 ```
 
-## Services Running
+## Validate the platform
 
-All 8 containers start with a single command. 3 microservices + full observability stack.
+**Check all containers are running**
 
 ```bash
 docker ps --filter name=ecom --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
@@ -28,7 +32,7 @@ docker ps --filter name=ecom --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}
 
 ![Services Running](docs/screenshots/services-up.png)
 
-### Health checks
+**Health checks**
 
 Each service exposes a `/health` endpoint to confirm it is up and responding.
 
@@ -47,48 +51,61 @@ curl http://localhost:8003/health
 ```
 ![Order Service Health](docs/screenshots/health-checks-order.png)
 
-## Prometheus — All Targets UP
+**Prometheus — All Targets UP**
 
-Prometheus scrapes metrics from all 3 services every 15 seconds.
-
-```bash
-# View targets at http://localhost:9090/targets
-```
+Prometheus scrapes metrics from all 3 services every 15 seconds. Open `http://localhost:9090/targets` to confirm all targets are up.
 
 ![Prometheus Targets](docs/screenshots/prometheus-targets.png)
 
-## Grafana Dashboards
+**Grafana Dashboards**
 
-Dashboards available at `http://localhost:4000`.
-
-One dashboard per service, each covering the 4 Golden Signals: Traffic, Latency, Errors, and Saturation.
+Open `http://localhost:4000`. One dashboard per service, each covering the 4 Golden Signals: Traffic, Latency, Errors, and Saturation.
 
 ![Grafana Dashboards](docs/screenshots/grafana-dashboards.png)
 
-## Load Testing
+## The SRE Story
 
-Load generator runs inside Docker using [Locust](https://locust.io). Three user classes simulate realistic traffic across all 3 services simultaneously.
+With the platform validated and running, this is a step by step walkthrough of how to generate load, trigger a failure, observe it in Grafana, and recover.
+
+**Step 1: Start load**
+
+Start Locust to send realistic traffic across all 3 services.
 
 ```bash
 docker compose --profile load up -d load-generator
 ```
 
-Then open `http://localhost:8089`, set **Users** to 20, **Ramp up** to 5 per second, and click **Start**.
-
-Watch RPS, latency, and error rate update live in Grafana.
+Open `http://localhost:8089`, set Users to 20, Ramp up to 5, and click Start.
 
 ![Locust](docs/screenshots/locust.png)
 
-## Chaos Engineering
+**Step 2: Inject failure**
 
-Each service has `/chaos/enable` and `/chaos/disable` endpoints. When enabled, 60% of requests return 500 errors, simulating a degraded service.
+Enable chaos on the Payment service. 60% of payment requests will now return 500 errors.
 
 ```bash
 curl -X POST http://localhost:8001/chaos/enable
+```
 
+**Step 3: Observe in Grafana**
+
+Open the Payment Service dashboard at `http://localhost:4000/d/payment-service`.
+
+Within 15 seconds you will see the error rate panel spike, the SLO status turn red, and the Order Service dashboard show payment failures climbing.
+
+**Step 4: Alert fires**
+
+After 2 minutes of sustained errors, Alertmanager fires the `PaymentSLOBudgetBurning` alert.
+
+**Step 5: Recover**
+
+Disable chaos and watch the dashboards return to green.
+
+```bash
 curl -X POST http://localhost:8001/chaos/disable
 ```
 
+Error rate drops, SLO status recovers, and the alert resolves. This is the detect, respond, and recover loop that SRE on-call work is built around.
 
 ## Tech Stack
 
