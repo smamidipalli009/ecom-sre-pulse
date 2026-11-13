@@ -113,21 +113,15 @@ Within 15 seconds all 3 dashboards react. Error rate spikes, SLO status turns re
 
 Payment Service — error rate spike, SLO red
 
-![Payment Spike](docs/screenshots/chaos-payment-spike1.png)
-![Payment Spike](docs/screenshots/chaos-payment-spike2.png)
-![Payment Spike](docs/screenshots/chaos-payment-spike3.png)
+![Payment Spike](docs/screenshots/chaos-payment-spike.png)
 
 Order Service — error rate spike, order failures climbing
 
-![Order Spike](docs/screenshots/chaos-order-spike1.png)
-![Order Spike](docs/screenshots/chaos-order-spike2.png)
-![Order Spike](docs/screenshots/chaos-order-spike3.png)
+![Order Spike](docs/screenshots/chaos-order-spike.png)
 
 Product Catalog — error rate spike, SLO red
 
-![Catalog Spike](docs/screenshots/chaos-catalog-spike1.png)
-![Catalog Spike](docs/screenshots/chaos-catalog-spike2.png)
-![Catalog Spike](docs/screenshots/chaos-catalog-spike3.png)
+![Catalog Spike](docs/screenshots/chaos-catalog-spike.png)
 
 **Step 4: Alert fires**
 
@@ -146,6 +140,25 @@ curl -X POST http://localhost:8003/chaos/disable
 ```
 
 Error rate drops, SLO status recovers, and the alert resolves. This is the detect, respond, and recover loop that SRE on-call work is built around.
+
+## Logs
+
+All 3 services emit structured JSON logs on every request. Promtail collects them from Docker and ships them to Loki. Each Grafana dashboard has a Logs panel at the bottom showing live entries alongside the metrics — so when an error spike appears on the chart, you can scroll down and read exactly which requests failed.
+
+**Normal traffic — INFO logs, all 200s**
+
+Every request produces one log line with service name, method, path, status code, and duration in milliseconds.
+
+![Logs Normal](docs/screenshots/loki-logs-normal.png)
+
+**During chaos — ERROR logs alongside the metrics spike**
+
+Enable chaos and 500 responses start appearing in the log stream immediately. The Grafana dashboard shows the error rate climbing in the metrics panels above and the failing requests in the Logs panel below. Metrics tell you something is broken; logs tell you which endpoint and when.
+
+![Logs Chaos](docs/screenshots/loki-logs-chaos.png)
+
+
+```
 
 ## Tech Stack
 
